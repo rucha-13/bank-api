@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +23,8 @@ public class TransactionController {
 	private TransactionService transactionService;
 
 	@ApiOperation(value="Finds transaction detail by providing transaction id")
-	@RequestMapping("/{id}")
-	public ResponseEntity<TransactionDetail> findTransactionDetailsByATransactionId(@PathVariable("id") long transactionId) {
+	@GetMapping("/{transactionId}")
+	public ResponseEntity<TransactionDetail> findTransactionDetailsByATransactionId(@PathVariable("Id") long transactionId) {
 		TransactionDetail transactionDetail = transactionService.findTransactionByTransactionId(transactionId);
 		if (transactionDetail != null)
 			return ResponseEntity.status(HttpStatus.FOUND).body(transactionDetail);
@@ -32,8 +33,8 @@ public class TransactionController {
 	}
 	
 	@ApiOperation(value="Finds all transaction details by providing account id")
-	@RequestMapping("/transaction/{id}")
-	public ResponseEntity<List<TransactionDetail>> findAllTransactionsByAccountId(@PathVariable("id") long accountId) {
+	@GetMapping("/transaction/{accountId}")
+	public ResponseEntity<List<TransactionDetail>> findAllTransactionsByAccountId(@PathVariable("accountId") long accountId) {
 		List<TransactionDetail> transactionDetailList = transactionService.findAllTransactionByAccountIdOrderByTimestamp(accountId);
 		if (transactionDetailList != null)
 			return ResponseEntity.status(HttpStatus.FOUND).body(transactionDetailList);

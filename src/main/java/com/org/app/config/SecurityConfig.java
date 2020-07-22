@@ -49,11 +49,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			}
 			
 		});
-		 http.
-        antMatcher("/**/").
-         csrf().disable().
+		 http.authorizeRequests()
+	        .antMatchers
+	        ("/v2/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security", "/swagger-ui", "/webjars/**")
+	        .permitAll()
+		 .and()
+		 .antMatcher("/**/").
+		 csrf().disable().
          sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-         and().addFilter(filter).authorizeRequests().anyRequest().authenticated();
+         and().addFilter(filter).authorizeRequests(). anyRequest().authenticated();
+         
+		 /*http.authorizeRequests()
+	        .antMatchers
+	        ("/v2/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security", "/swagger-ui", "/webjars/**")
+	        .permitAll()
+	        .and().addFilter(filter)
+	        .authorizeRequests()
+	        .anyRequest()
+	        .authenticated()
+	        .and()
+	        .csrf().disable();*/
 	}
 	
 }

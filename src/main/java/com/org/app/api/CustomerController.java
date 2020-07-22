@@ -3,6 +3,7 @@ package com.org.app.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +21,8 @@ public class CustomerController {
 	CustomerService customerService;
 
 	@ApiOperation(value="Finds customer detail by providing customer id")
-	@RequestMapping("/{id}")
-	public ResponseEntity<CustomerDetail> findCustomerByCustomerId(@PathVariable("id") long customerId) throws Exception {
+	@GetMapping("/{customerId}")
+	public ResponseEntity<CustomerDetail> findCustomerByCustomerId(@PathVariable("customerId") long customerId) throws Exception {
 		CustomerDetail customerDetail = customerService.findCustomerByCustomerId(customerId);
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerDetail);
 	}
